@@ -1,4 +1,4 @@
-package handong.edu.csee.java.lab09.SaleReport;
+package handong.edu.csee.java.lab09.SaleReport;// package name for Lab09 SaleReort
 /**
  * this  class for store
  * the name of sale Man by user input
@@ -7,25 +7,25 @@ package handong.edu.csee.java.lab09.SaleReport;
  *
  */
 public class Salesman {
-	private String mName ;
-	private double Sales;
+	private String mName ;// class variable
+	private double Sales;// class variable
 	// method 
 	public String getnName() {
-		return mName;
+		return mName;// return the class variable
 
 	}
 	// method
 	public void setmName(String mName1) {
-		mName = mName1;
+		mName = mName1;// return class variable to parameter variable
 	}
 	//method
 	public double getSale() {
-		return Sales;
+		return Sales;// return Sales Class variable
 	}
 
 	//method
 	public void setSales(double sale) {
-		Sales = sale;
+		Sales = sale; // return the class variable to parameter variable
 	}
 
 }

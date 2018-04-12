@@ -1,5 +1,5 @@
-package handong.edu.csee.java.lab09.SaleReport;
-import java.util.Scanner;
+package handong.edu.csee.java.lab09.SaleReport;// package name for Lab09 SaleReort
+import java.util.Scanner;// import java Scanner to keyboard input 
 
 /**
  * this program going to calculate the
@@ -11,11 +11,10 @@ import java.util.Scanner;
  */
 public class SaleReport {
 
-	private double highestSale;
-	private double averageSale;
-	private  Salesman[] team;
-	private int numOfsalesman;
-
+	private double highestSale;// class variable as private for high sale
+	private double averageSale;// class variable as private for average
+	private  Salesman[] team;// class variable as private Array
+	private int numOfsalesman;// class variable as private int for number of salesMan
 
 
 	/**
@@ -23,9 +22,9 @@ public class SaleReport {
 	 * for user input the number of SaleMan
 	 */
 	public SaleReport() {
-		System.out.println("Enter number of sale associate: ");
-		Scanner myScanner = new Scanner(System.in);
-		numOfsalesman = myScanner.nextInt();
+		System.out.println("Enter number of sale associate: ");// print out Enter number of sale associate:
+		Scanner myScanner = new Scanner(System.in);// constructor 
+		numOfsalesman = myScanner.nextInt();//constructor to keyboard
 
 	}
 
@@ -35,12 +34,12 @@ public class SaleReport {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		SaleReport mySaleReport = new SaleReport();
+		SaleReport mySaleReport = new SaleReport();// constructor saleReport class
 
-		mySaleReport.getData();
-		mySaleReport.calculateAverageSales();
-		mySaleReport.highestSale();
-		mySaleReport.priteOutResult();
+		mySaleReport.getData();// constructor getDate method
+		mySaleReport.calculateAverageSales(); //constructor calculateAverageSales method
+		mySaleReport.highestSale();// constructor highestSale method
+		mySaleReport.priteOutResult();// constructor priteOutResult() menthod
 	}
 
 	/**
@@ -49,11 +48,11 @@ public class SaleReport {
 	 */
 	public void  getData() {
 
-		team = new Salesman[numOfsalesman];
+		team = new Salesman[numOfsalesman]; //constructor array 
+		// loop
+		for (int i=0;i < numOfsalesman ; i++) { 
 
-		for (int i=0;i < numOfsalesman ; i++) {
-
-			Scanner myScanner = new Scanner(System.in);
+			Scanner myScanner = new Scanner(System.in);// make object to Scan
 
 			System.out .println("Enter the data of associate number " + (i+1));// print out Enter the data of associate number
 
@@ -63,10 +62,10 @@ public class SaleReport {
 			System.out.print("Enter sassociate's sale : $" );// print out Enter sassociate's sale
 			double sale = myScanner.nextDouble();// input the price of each saleMan had sale
 
-			Salesman mySaleman =new Salesman();
-			mySaleman.setmName(name);
-			mySaleman.setSales(sale);
-			team[i] = mySaleman;
+			Salesman mySaleman =new Salesman();// constructor  Salesman class 
+			mySaleman.setmName(name);// call the setmName from salesman class
+			mySaleman.setSales(sale);// call the setSales from salesman class
+			team[i] = mySaleman;// mention team[i] = mySaleman
 		}
 	}
 
@@ -76,8 +75,10 @@ public class SaleReport {
 	 */
 	public void highestSale() {
 
-
+		//loop
 		for(int i = 0; i <team.length-1;i++ ) {
+
+			// condition
 			if (team[i].getSale() < team[i+1].getSale()) {
 
 				highestSale = team[i+1].getSale();
@@ -92,15 +93,16 @@ public class SaleReport {
 	 * to find the average of Sale men
 	 */
 	public void calculateAverageSales() {
-		double sum =0;
+		double sum =0; //local variable
 
-
+		//loop
 		for (int  i = 0; i< team.length ; i++) {
+			//local variable
 			double sales = team[i].getSale()	;
 			sum = sum + sales;
 		} 
 
-		averageSale = sum / team.length;
+		averageSale = sum / team.length;// Calculate the average
 	}
 
 	/**
@@ -119,9 +121,10 @@ public class SaleReport {
 
 
 		System.out.println("\nThe following had the hightest sale: ");// print out The following had the highest sale:
-
+		//loop
 		for(int i=0; i<team.length;i++) {
 
+			//condition
 			if(highestSale == (team[i].getSale())) {
 				System.out.println("Name : " + team[i].getnName());//print out the name highest sale man
 				System.out.println("Sale : " + team[i].getSale());// print out the value of highest sale man
@@ -131,7 +134,9 @@ public class SaleReport {
 		System.out.println("The rest performed as follow ");// print out The rest performed as follow
 
 		// find the sale man who sale below the average
+		//loop
 		for(int i=0; i<team.length;i++) {
+			//condition
 			if(highestSale != (team[i].getSale()))  {
 				System.out.println("Name : " + team[i].getnName());// print out the name of Sale man who had sale below the average
 				System.out.println("Sale : " + team[i].getSale());// print out the value below the average
@@ -139,7 +144,8 @@ public class SaleReport {
 					System.out.println("$"+ ( averageSale - team[i].getSale()) + " below the average");// print out ---value --- below the average
 				}
 				else { 
-					System.out.println("$"+ (  team[i].getSale() - averageSale ) + " above the average");// print out the value of sale man who had sale more than average but lest than highest 
+					// print out the value of sale man who had sale more than average but lest than highest 
+					System.out.println("$"+ (  team[i].getSale() - averageSale ) + " above the average");
 				}
 
 			}
