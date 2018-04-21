@@ -1,4 +1,5 @@
 package handong.edu.csee.java.lab09.SaleReport;// package name for Lab09 SaleReort
+import java.util.ArrayList;// import the package of ArrayList
 import java.util.Scanner;// import java Scanner to keyboard input 
 
 /**
@@ -11,22 +12,10 @@ import java.util.Scanner;// import java Scanner to keyboard input
  */
 public class SaleReport {
 
-	private double highestSale;// class variable as private for high sale
-	private double averageSale;// class variable as private for average
-	private  Salesman[] team;// class variable as private Array
-	private int numOfsalesman;// class variable as private int for number of salesMan
+	private double highestSale;// instance variable as private for high sale
+	private double averageSale;// instance  variable as private for average
+	ArrayList<Salesman> team;// //declare ArrayList
 
-
-	/**
-	 * This Constructor name SaleReport
-	 * for user input the number of SaleMan
-	 */
-	public SaleReport() {
-		System.out.println("Enter number of sale associate: ");// print out Enter number of sale associate:
-		Scanner myScanner = new Scanner(System.in);// constructor 
-		numOfsalesman = myScanner.nextInt();//constructor to keyboard
-
-	}
 
 
 
@@ -39,7 +28,7 @@ public class SaleReport {
 		mySaleReport.getData();// constructor getDate method
 		mySaleReport.calculateAverageSales(); //constructor calculateAverageSales method
 		mySaleReport.highestSale();// constructor highestSale method
-		mySaleReport.priteOutResult();// constructor priteOutResult() menthod
+		mySaleReport.priteOutResult();// constructor priteOutResult() method
 	}
 
 	/**
@@ -48,24 +37,31 @@ public class SaleReport {
 	 */
 	public void  getData() {
 
-		team = new Salesman[numOfsalesman]; //constructor array 
+		team = new ArrayList<Salesman>();//constructor of ArrayList
+		System.out.println ("Enter items for the list, when prompted.");// print out Enter items for the list, when prompted
+		boolean done = false;
 		// loop
-		for (int i=0;i < numOfsalesman ; i++) { 
-
-			Scanner myScanner = new Scanner(System.in);// make object to Scan
-
-			System.out .println("Enter the data of associate number " + (i+1));// print out Enter the data of associate number
-
-			System.out.print("Enter name of sale associate  :");//print out Enter name of sale associate
-			String name = myScanner.nextLine();// input the name of each saleMan
+		while(!done) {
+			Scanner keyboard = new Scanner (System.in);
+			System.out.print("Enter name of sale associate  :");// print out Enter name of sale associate
+			String entry = keyboard.nextLine ();
 
 			System.out.print("Enter sassociate's sale : $" );// print out Enter sassociate's sale
-			double sale = myScanner.nextDouble();// input the price of each saleMan had sale
-
-			Salesman mySaleman =new Salesman();// constructor  Salesman class 
-			mySaleman.setmName(name);// call the setmName from salesman class
+			double sale = keyboard.nextDouble();// input the price of each saleMan had sale
+			//Salesman mySalesman  = new Salesman();
+			Salesman mySaleman = new Salesman();// constructor  Salesman class 
+			mySaleman.setmName(entry);// call the setmName from salesman class
 			mySaleman.setSales(sale);// call the setSales from salesman class
-			team[i] = mySaleman;// mention team[i] = mySaleman
+			team.add(mySaleman);// mention team[i] = mySaleman
+
+			Scanner repeatCheck = new Scanner(System.in);
+
+			System.out.print ("More items for the list? ");//print out More item or the list
+			String accept = repeatCheck.nextLine ();
+
+			if (!accept.equalsIgnoreCase ("yes"))// if you type yes you can input more SalesMen 
+				done = true;// if you not type "yes" and type anything else it will print the result
+
 		}
 	}
 
@@ -76,15 +72,13 @@ public class SaleReport {
 	public void highestSale() {
 
 		//loop
-		for(int i = 0; i <team.length-1;i++ ) {
 
-			// condition
-			if (team[i].getSale() < team[i+1].getSale()) {
+		for(int i = 0; i < team.size()-1;i++ ) {
+			if (team.get(i).getSale() < team.get(i+1).getSale() ){
 
-				highestSale = team[i+1].getSale();
+				highestSale = team.get(i+1).getSale();
 			}
 		}
-
 	}
 
 
@@ -93,16 +87,15 @@ public class SaleReport {
 	 * to find the average of Sale men
 	 */
 	public void calculateAverageSales() {
-		double sum =0; //local variable
+		double sum =0;// local variable
 
 		//loop
-		for (int  i = 0; i< team.length ; i++) {
-			//local variable
-			double sales = team[i].getSale()	;
+		for(int  i = 0 ; i< team.size() ; i++) {
+			double sales = team.get(i).getSale();
 			sum = sum + sales;
 		} 
-
-		averageSale = sum / team.length;// Calculate the average
+		//find the average number
+		averageSale = sum / team.size();
 	}
 
 	/**
@@ -115,39 +108,36 @@ public class SaleReport {
 	 */
 	public void priteOutResult() {
 
-		System.out.println(" Average ale per associate is : $" + averageSale);// print out Average ale per associate is : $
+		System.out.println("Average sale per associate is : $" + averageSale);// print out Average ale per associate is : $
 		System.out.println("The Hightest sale figure is : $" + highestSale);//print out The Highest sale figure is : $
 
 
 
 		System.out.println("\nThe following had the hightest sale: ");// print out The following had the highest sale:
 		//loop
-		for(int i=0; i<team.length;i++) {
-
-			//condition
-			if(highestSale == (team[i].getSale())) {
-				System.out.println("Name : " + team[i].getnName());//print out the name highest sale man
-				System.out.println("Sale : " + team[i].getSale());// print out the value of highest sale man
-				System.out.println("$"+ (  team[i].getSale() - averageSale ) + " above the average\n");// print out how much sale man more than average
+		for(int i=0; i<team.size();i++) {
+			//condition find the highest salesMen
+			if(highestSale == ((team.get(i)).getSale())) {
+				System.out.println("Name : " + (team.get(i)).getnName());//print out the name highest sale man
+				System.out.println("Sale : " + team.get(i).getSale());// print out the value of highest sale man
+				System.out.println("$"+ (  team.get(i).getSale() - averageSale ) + " above the average\n");// print out how much sale man more than average
 			}
 		}
 		System.out.println("The rest performed as follow ");// print out The rest performed as follow
 
 		// find the sale man who sale below the average
-		//loop
-		for(int i=0; i<team.length;i++) {
-			//condition
-			if(highestSale != (team[i].getSale()))  {
-				System.out.println("Name : " + team[i].getnName());// print out the name of Sale man who had sale below the average
-				System.out.println("Sale : " + team[i].getSale());// print out the value below the average
-				if (averageSale > team[i].getSale()) {
-					System.out.println("$"+ ( averageSale - team[i].getSale()) + " below the average");// print out ---value --- below the average
+		for(int i=0; i<team.size();i++) {
+			//condition find the salesMen who has sale below the average
+			if(highestSale != (team.get(i).getSale()))  {
+				System.out.println("Name : " + team.get(i).getnName());// print out the name of Sale man who had sale below the average
+				System.out.println("Sale : " + team.get(i).getSale());// print out the value below the average
+				if (averageSale > team.get(i).getSale()) {
+					System.out.println("$"+ ( averageSale - team.get(i).getSale()) + " below the average");// print out ---value --- below the average
 				}
 				else { 
-					// print out the value of sale man who had sale more than average but lest than highest 
-					System.out.println("$"+ (  team[i].getSale() - averageSale ) + " above the average");
+					// this else find the salesMen who has sale above the average 
+					System.out.println("$"+ (  team.get(i).getSale() - averageSale ) + " above the average");// print out the value of sale man who had sale more than average but lest than highest 
 				}
-
 			}
 
 		}
@@ -155,3 +145,5 @@ public class SaleReport {
 	}
 
 }
+
+
